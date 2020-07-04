@@ -6,22 +6,39 @@ import { Container } from './App.styles';
 import { UserForm } from './containers/UserForm';
 
 // Utils & Assets
+import { getUser } from './api/github';
 import { getCookie } from './utils/cookieUtils';
 
 
 function App() {
-  const [user, setUser] = useState(() => getCookie());
+  const [userData, setUserData] = useState(() => getCookie());
+
+  const loadUser = async (username) => {
+    const { data, isSuccessful } = await getUser(username);
+    if (isSuccessful) {
+      setUserData(prev => ({ ...data, ...prev }));
+    }
+  }
+
+
+  const handleUpdateUser = async (values) => {
+    await loadUser(values.githubUser);
+    setUserData(prev => ({ ...prev, ...values }));
+  }
 
   useEffect(() => {
-    if (!user?.githubUser) return;
-  }, [user]);
+    const userCookie = getCookie();
+    if (userCookie?.githubUser) {
+      loadUser(userCookie.githubUser);
+    }
+  }, []);
 
-  console.log(user);
   return (
     <>
-      <AppHeader />
+      <AppHeader username={userData?.githubUser} avatarUrl={userData.avatar_url} />
       <Container>
-        {!user?.githubUser && <UserForm onUpdateUser={setUser} />}
+        {!userData?.githubUser && <UserForm onUpdateUser={handleUpdateUser} />}
+        {userData?.githubUser && <UserForm onUpdateUser={handleUpdateUser} />}
       </Container>
     </>
   );

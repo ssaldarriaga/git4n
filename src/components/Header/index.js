@@ -1,22 +1,19 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 // Components
 import { Avatar } from '../Avatar';
 import { Header } from './Header.styles';
 
 // Utils & Assets
-import { getCookie } from '../../utils/cookieUtils';
 import defaultAvatar from '../../assets/img/avatar.png';
 
-export function AppHeader() {
-  const { githubUser, avatar_url: avatarUrl = defaultAvatar } = useMemo(() => getCookie(), []);
-
+export function AppHeader({ username, avatarUrl = defaultAvatar }) {
   return (
     <Header className="header">
       <h1 className="header__logo">Git4n</h1>
       <div className="header__profile">
-        <Avatar src={avatarUrl} alt={githubUser || 'git4n'} />
-        {githubUser && <span className="header__profile--username">{githubUser}</span>}
+        <Avatar src={avatarUrl} alt={username || 'git4n'} />
+        {username && <span className="header__profile--username">{username}</span>}
       </div>
     </Header>
   );
