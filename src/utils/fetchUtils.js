@@ -84,8 +84,9 @@ async function makeRequest(url, options = {}) {
   const method = getMethod(options.method);
   const body = getBody(options.body, method);
   const headers = getHeaders(options.headers);
+  const signal = options.signal;
 
-  return fetch(url, { method, body, headers });
+  return fetch(url, { method, body, headers, signal });
 }
 
 /**

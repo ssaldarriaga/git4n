@@ -6,10 +6,10 @@ async function getUser(username) {
   return handleResponse(response)
 }
 
-async function getRepositories(username, params = {}, search = '') {
+async function getRepositories(username, params = {}, search = '', signal) {
   const query = `user:${username}+${search}+in:name`;
   const url = `https://api.github.com/search/repositories?q=${query}&${objectToQueryParams(params)}`;
-  const response = await makeRequest(url);
+  const response = await makeRequest(url, { signal });
   return handleResponse(response)
 }
 

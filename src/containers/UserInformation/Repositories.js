@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 // Components
+import { SearchRepo } from './SearchRepo';
 import { Table } from '../../components/Table';
 import { RepositoriesContainer } from './UserInformation.styles';
 
@@ -35,8 +36,8 @@ const columns = [
 export function Repositories({ username }) {
   const [repositories, setRepositories] = useState({ data: null, page: 1, sort: 'name', totalCount: 0 });
 
-  const loadRepositories = async (user, page, search = '') => {
-    const { data, isSuccessful } = await getRepositories(user, { page, per_page: PER_PAGE }, search);
+  const loadRepositories = async (user, page, search = '', signal) => {
+    const { data, isSuccessful } = await getRepositories(user, { page, per_page: PER_PAGE }, search, signal);
     if (isSuccessful) {
       setRepositories(prev => ({ ...prev, data: data.items, page, totalCount: data.total_count }));
     }
@@ -58,11 +59,16 @@ export function Repositories({ username }) {
     loadRepositories(username, newPage)
   }, [repositories.page, username]);
 
+  const handleSearch = useCallback((value, signal) => {
+    loadRepositories(username, 1, value, signal)
+  }, [username]);
+
   if (!repositories.data) return <span>Loading...</span>;
 
   return (
     <RepositoriesContainer>
       <h3 className="mb-3">Repositories</h3>
+      <SearchRepo onSearch={handleSearch}/>
       <Table
         columns={columns}
         data={repositories.data}
