@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 // Components
 import { AppHeader } from './components/Header';
-import { Container } from './App.styles';
 import { UserForm } from './containers/UserForm';
+import { UserInformation } from './containers/UserInformation';
 
 // Utils & Assets
 import { getUser } from './api/github';
@@ -36,10 +36,8 @@ function App() {
   return (
     <>
       <AppHeader username={userData?.githubUser} avatarUrl={userData.avatar_url} />
-      <Container>
-        {!userData?.githubUser && <UserForm onUpdateUser={handleUpdateUser} />}
-        {userData?.githubUser && <UserForm onUpdateUser={handleUpdateUser} />}
-      </Container>
+      {!userData?.githubUser && <UserForm onUpdateUser={handleUpdateUser} />}
+      {userData?.githubUser && <UserInformation user={userData} />}
     </>
   );
 }
