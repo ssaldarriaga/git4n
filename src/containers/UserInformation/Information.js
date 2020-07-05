@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 import { Avatar } from '../../components/Avatar';
 import { InformationContainer, BackButton } from './UserInformation.styles';
 
+// Utils & Assets
+import defaultAvatar from '../../assets/img/avatar-black.png';
+
 export function Information({
   user: {
-    login,
-    avatar_url: avatarUrl,
+    githubUser,
+    avatar_url: avatarUrl = defaultAvatar,
     identification,
     birthDate,
     lastName,
@@ -22,12 +25,12 @@ export function Information({
       <BackButton onClick={onReset}>⮜ Reset</BackButton>
       <div className="row">
         <div className="col-auto d-flex justify-content-center align-items-center">
-          <Avatar src={avatarUrl} alt={login} height={100} width={100} className="mb-3" />
+          <Avatar src={avatarUrl} alt={githubUser} height={100} width={100} className="mb-3" />
         </div>
         <div className="col">
           <h3>{name} {lastName}</h3>
           <ul className="information__list">
-            <li><strong>Username: </strong>{login}</li>
+            <li><strong>Username: </strong>{githubUser}</li>
             <li><strong>Identification: </strong>{identification}</li>
             <li><strong>Birth date: </strong>{birthDate}</li>
             <li><strong>Email: </strong>{email}</li>
@@ -40,7 +43,7 @@ export function Information({
 
 Information.propTypes = {
   user: PropTypes.shape({
-    login: PropTypes.string,
+    githubUser: PropTypes.string,
     avatar_url: PropTypes.string,
     identification: PropTypes.string,
     birthDate: PropTypes.string,

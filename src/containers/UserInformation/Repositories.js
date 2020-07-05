@@ -50,6 +50,15 @@ function sortData(data, field, direction) {
   return sortedData;
 }
 
+function Container({ children }) {
+  return (
+    <RepositoriesContainer>
+      <h3 className="mb-3">Repositories</h3>
+      {children}
+    </RepositoriesContainer>
+  )
+}
+
 export function Repositories({ username }) {
   const [repositories, setRepositories] = useState({
     data: null,
@@ -72,7 +81,7 @@ export function Repositories({ username }) {
   };
 
   useEffect(() => {
-    if (repositories.data == null) {
+    if (repositories.data == null && username) {
       loadRepositories(username, 1);
     }
   }, [repositories.data, username]);
@@ -100,11 +109,16 @@ export function Repositories({ username }) {
     setRepositories(prev => ({ ...prev, data: sortedData, sortField: field, sortDirection: direction }));
   }, [repositories]);
 
-  if (!repositories.data) return <Loader />;
+  if (!repositories.data && username) return <Loader />;
+
+  if (!username) return (
+    <Container>
+      <span>The user does not exist.</span>
+    </Container>
+  );
 
   return (
-    <RepositoriesContainer>
-      <h3 className="mb-3">Repositories</h3>
+    <Container>
       <SearchRepo onSearch={handleSearch}/>
       <Table
         columns={columns}
@@ -119,7 +133,7 @@ export function Repositories({ username }) {
         sortField={repositories.sortField}
         sortDirection={repositories.sortDirection}
       />
-    </RepositoriesContainer>
+    </Container>
   );
 };
 

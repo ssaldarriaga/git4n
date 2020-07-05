@@ -8,7 +8,7 @@ import { Repositories } from './Repositories';
 import { Loader } from '../../components/Loader';
 
 export function UserInformation({ user, onReset }) {
-  if (!user.login) return <Loader />;
+  if (!user.githubUser) return <Loader />;
 
   return (
     <Container className="pt-0">
@@ -20,6 +20,7 @@ export function UserInformation({ user, onReset }) {
 
 UserInformation.propTypes = {
   user: PropTypes.shape({
+    githubUser: PropTypes.string,
     login: PropTypes.string,
     avatar_url: PropTypes.string,
     identification: PropTypes.string,
