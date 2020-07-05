@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // Components
 import { SearchRepo } from './SearchRepo';
@@ -24,7 +24,7 @@ const columns = [
     accessor: 'language',
   },
   {
-    name: 'Default branch',
+    name: 'Branch',
     accessor: 'default_branch',
   },
   {
@@ -33,13 +33,39 @@ const columns = [
   },
 ]
 
+function sortData(data, field, direction) {
+  let sortedData = data.sort((prev, next) => {
+    const prevValue = prev[field] || '';
+    const nextValue = next[field] || '';
+
+    return prevValue.localeCompare(nextValue);
+  });
+
+  if (direction === 'desc') {
+    sortedData = sortedData.reverse()
+  }
+
+  return sortedData;
+}
+
 export function Repositories({ username }) {
-  const [repositories, setRepositories] = useState({ data: null, page: 1, sort: 'name', totalCount: 0 });
+  const [repositories, setRepositories] = useState({
+    data: null,
+    page: 1,
+    sortField: 'name',
+    sortDirection: 'asc',
+    totalCount: 0,
+  });
 
   const loadRepositories = async (user, page, search = '', signal) => {
     const { data, isSuccessful } = await getRepositories(user, { page, per_page: PER_PAGE }, search, signal);
     if (isSuccessful) {
-      setRepositories(prev => ({ ...prev, data: data.items, page, totalCount: data.total_count }));
+      setRepositories(prev => ({
+        ...prev,
+        data: sortData(data.items, prev.sortField, prev.sortDirection),
+        page,
+        totalCount: data.total_count
+      }));
     }
   };
 
@@ -63,6 +89,15 @@ export function Repositories({ username }) {
     loadRepositories(username, 1, value, signal)
   }, [username]);
 
+  const handleSort = useCallback((field) => {
+    const { sortDirection, data } = repositories;
+    const direction = sortDirection === 'asc' ? 'desc' : 'asc';
+
+    const sortedData = sortData(data, field, direction);
+
+    setRepositories(prev => ({ ...prev, data: sortedData, sortField: field, sortDirection: direction }));
+  }, [repositories]);
+
   if (!repositories.data) return <span>Loading...</span>;
 
   return (
@@ -72,10 +107,15 @@ export function Repositories({ username }) {
       <Table
         columns={columns}
         data={repositories.data}
+        // Pagination
         page={repositories.page}
         onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
         hasNextPage={repositories.page * PER_PAGE < repositories.totalCount}
+        onPreviousPage={handlePreviousPage}
+        // Sort
+        onSort={handleSort}
+        sortField={repositories.sortField}
+        sortDirection={repositories.sortDirection}
       />
     </RepositoriesContainer>
   );

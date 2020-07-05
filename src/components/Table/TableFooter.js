@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 // Components
 import { PreviousButton, NextButton } from './Table.styles';

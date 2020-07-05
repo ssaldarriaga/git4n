@@ -36,3 +36,20 @@ export const NextButton = styled.button`
     content: '\u2B9E';
   }
 `;
+
+export const Th = styled.th`
+  .cell__container:hover .cell__container--value {
+    text-decoration: underline;
+  }
+
+  .cell__container:hover .cell__container--value {
+    text-decoration: underline;
+  }
+
+  .cell__container--arrow:before {
+    content: '${({ icon }) => icon}';
+    font-size: 0.875rem;
+    margin-left: 0.5rem;
+    text-decoration: none;
+  }
+`;

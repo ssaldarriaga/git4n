@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -9,16 +9,25 @@ import { TableFooter } from './TableFooter';
 export function Table({
   columns = [],
   data = [],
+  // Pagination
   page,
   hasNextPage,
   onNextPage = () =>{},
   onPreviousPage = () => {},
+  // Sort
+  sortField,
+  sortDirection,
   onSort = () => {},
 }) {
 
   return (
     <table className="table table-hover table-bordered">
-      <TableHead columns={columns} onSort={onSort} />
+      <TableHead
+        onSort={onSort}
+        columns={columns}
+        sortField={sortField}
+        direction={sortDirection}
+      />
       <TableBody columns={columns} rows={data} />
       <TableFooter
         colSpan={columns.length}
