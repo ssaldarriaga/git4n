@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 
 // Components
@@ -15,9 +15,14 @@ import { validationSchema } from './UserForm.validationSchema';
 
 
 export function UserForm({ onUpdateUser }) {
-  const handleSubmit = (values) => {
+  const [loading, setLoading] = useState(false);
+  const buttonText = loading ? 'Saving...' : 'Save';
+
+  const handleSubmit = async (values) => {
+    setLoading(true);
     setCookie(values);
-    onUpdateUser(values);
+    await onUpdateUser(values);
+    setLoading(false);
   };
 
   return (
@@ -52,8 +57,8 @@ export function UserForm({ onUpdateUser }) {
             </div>
             <div className="row mb-3">
               <div className="col-12 col-md d-flex justify-content-end">
-                <Button type="submit">
-                  Save
+                <Button type="submit" disabled={loading}>
+                  {buttonText}
                 </Button>
               </div>
             </div>
