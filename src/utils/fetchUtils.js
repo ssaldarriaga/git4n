@@ -1,5 +1,14 @@
 const methodsAllowed = ['GET', 'POST'];
 
+function objectToQueryParams(params = {}) {
+  return Object.keys(params).reduce(function(prev, current) {
+    const value = params[current];
+    if (!value) return prev;
+
+    return `${prev}${current}=${value}&`;
+  }, '');
+}
+
 /**
  * Check the HTTP method
  * @param {string} method - HTTP method
@@ -99,4 +108,4 @@ async function handleResponse(response) {
   return data;
 }
 
-export { makeRequest, handleResponse };
+export { makeRequest, handleResponse, objectToQueryParams };
