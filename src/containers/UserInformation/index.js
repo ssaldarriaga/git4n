@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { Information } from './Information';
 import { Container } from '../../App.styles';
 import { Repositories } from './Repositories';
+import { Loader } from '../../components/Loader';
 
 export function UserInformation({ user, onReset }) {
-  if (!user.login) return <span>Loading...</span>
+  if (!user.login) return <Loader />;
 
   return (
     <Container className="pt-0">

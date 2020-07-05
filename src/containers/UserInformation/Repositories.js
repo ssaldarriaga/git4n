@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 // Components
 import { SearchRepo } from './SearchRepo';
 import { Table } from '../../components/Table';
+import { Loader } from '../../components/Loader';
 import { RepositoriesContainer } from './UserInformation.styles';
 
 // Utils & Assets
@@ -99,7 +100,7 @@ export function Repositories({ username }) {
     setRepositories(prev => ({ ...prev, data: sortedData, sortField: field, sortDirection: direction }));
   }, [repositories]);
 
-  if (!repositories.data) return <span>Loading...</span>;
+  if (!repositories.data) return <Loader />;
 
   return (
     <RepositoriesContainer>
