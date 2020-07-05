@@ -5,7 +5,12 @@ import { ErrorMessage as FormikError } from 'formik';
 // Components
 import { Input, ErrorMessage } from './Input.styles';
 
-export function InputField({ field: { name, value, onChange }, label, type = 'text', form: { errors, touched } }) {
+export function InputField({
+  field: { name, value, onChange },
+  label,
+  type = 'text',
+  form: { errors, touched },
+}) {
   const hasError = name in touched && name in errors;
   return (
     <>
@@ -26,7 +31,7 @@ InputField.propTypes = {
   }).isRequired,
   form: PropTypes.shape({
     errors: PropTypes.objectOf(PropTypes.any),
-    touched: PropTypes.bool,
+    touched: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
   label: PropTypes.string,
   type: PropTypes.oneOf(['text', 'date', 'email']),
