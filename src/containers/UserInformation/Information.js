@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import { Avatar } from '../../components/Avatar';
-import { InformationContainer } from './UserInformation.styles';
+import { InformationContainer, BackButton } from './UserInformation.styles';
 
 export function Information({
   user: {
@@ -14,10 +14,12 @@ export function Information({
     lastName,
     name,
     email,
-  }
+  },
+  onReset = () => {},
 }) {
   return (
     <InformationContainer className="information mb-3">
+      <BackButton onClick={onReset}>⮜ Reset</BackButton>
       <div className="row">
         <div className="col-auto d-flex justify-content-center align-items-center">
           <Avatar src={avatarUrl} alt={login} height={100} width={100} className="mb-3" />
@@ -46,4 +48,5 @@ Information.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  onReset: PropTypes.func,
 };

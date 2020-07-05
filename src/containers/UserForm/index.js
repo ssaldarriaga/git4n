@@ -8,17 +8,10 @@ import { Button } from '../../components/Button';
 import { InputField } from '../../components/Input';
 
 // Utils & Assets
+import { INITIAL_VALUES } from '../../constants/userForm';
 import { setCookie } from '../../utils/cookieUtils';
 import { validationSchema } from './UserForm.validationSchema';
 
-const initialValues = {
-  githubUser: '',
-  name: '',
-  lastName: '',
-  identification: '',
-  birthDate: '',
-  email: ''
-};
 
 export function UserForm({ onUpdateUser }) {
   const handleSubmit = (values) => {
@@ -28,7 +21,7 @@ export function UserForm({ onUpdateUser }) {
 
   return (
     <Container>
-      <Formik onSubmit={handleSubmit} initialValues={initialValues} validationSchema={validationSchema}>
+      <Formik onSubmit={handleSubmit} initialValues={INITIAL_VALUES} validationSchema={validationSchema}>
         <Form noValidate>
           <>
           <Title>Register</Title>

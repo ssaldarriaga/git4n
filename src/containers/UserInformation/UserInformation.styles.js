@@ -17,3 +17,14 @@ export const InformationContainer = styled.section`
 export const RepositoriesContainer = styled.section`
   ${containers}
 `;
+
+export const BackButton = styled.button`
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  padding: 0.25rem 0.75rem;
+
+  &:hover {
+    background: #24292e1a;
+  }
+`;
