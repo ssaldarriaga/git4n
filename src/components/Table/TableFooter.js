@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { PreviousButton, NextButton } from './Table.styles';
 
-export function TableFooter({ colSpan, onPreviousPage, disabledPreviousPage, onNextPage, disabledNextPage }) {
+export function TableFooter({
+  colSpan,
+  onPreviousPage,
+  disabledPreviousPage,
+  onNextPage,
+  disabledNextPage
+}) {
   return (
     <tfoot>
       <tr>
@@ -16,4 +23,12 @@ export function TableFooter({ colSpan, onPreviousPage, disabledPreviousPage, onN
       </tr>
     </tfoot>
   );
-}
+};
+
+TableFooter.propTypes = {
+  colSpan: PropTypes.number,
+  onPreviousPage: PropTypes.func,
+  disabledPreviousPage: PropTypes.bool,
+  onNextPage: PropTypes.func,
+  disabledNextPage: PropTypes.bool,
+};

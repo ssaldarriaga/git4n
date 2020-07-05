@@ -38,7 +38,7 @@ export function Table({
       />
     </table>
   );
-}
+};
 
 Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
@@ -46,7 +46,13 @@ Table.propTypes = {
     accessor: PropTypes.string,
   })),
   data: PropTypes.arrayOf(PropTypes.object),
+  // Pagination
+  page: PropTypes.number,
+  hasNextPage: PropTypes.bool,
   onNextPage: PropTypes.func,
   onPreviousPage: PropTypes.func,
+  // Sort
+  sortField: PropTypes.string,
+  sortDirection: PropTypes.string,
   onSort: PropTypes.func,
 };

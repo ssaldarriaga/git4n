@@ -26,7 +26,7 @@ export function SearchRepo({ onSearch }) {
   }
 
   return <Input className="mb-3" placeholder="Search repository" value={value} onChange={handleChange}/>;
-}
+};
 
 SearchRepo.propTypes = {
   onSearch: PropTypes.func.isRequired,

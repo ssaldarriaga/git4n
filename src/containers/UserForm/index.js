@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 
 // Components
@@ -17,7 +18,7 @@ export function UserForm({ onUpdateUser }) {
   const handleSubmit = (values) => {
     setCookie(values);
     onUpdateUser(values);
-  }
+  };
 
   return (
     <Container>
@@ -61,4 +62,8 @@ export function UserForm({ onUpdateUser }) {
       </Formik>
     </Container>
   );
-}
+};
+
+UserForm.propTypes = {
+  onUpdateUser: PropTypes.func,
+};

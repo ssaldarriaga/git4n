@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { Information } from './Information';
@@ -14,4 +15,17 @@ export function UserInformation({ user, onReset }) {
       <Repositories username={user.login} />
     </Container>
   );
-}
+};
+
+UserInformation.propTypes = {
+  user: PropTypes.shape({
+    login: PropTypes.string,
+    avatar_url: PropTypes.string,
+    identification: PropTypes.string,
+    birthDate: PropTypes.string,
+    lastName: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+  onReset: PropTypes.func,
+};

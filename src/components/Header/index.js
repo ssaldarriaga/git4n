@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { Avatar } from '../Avatar';
@@ -17,4 +18,9 @@ export function AppHeader({ username, avatarUrl = defaultAvatar }) {
       </div>
     </Header>
   );
+};
+
+AppHeader.propTypes = {
+  username: PropTypes.string,
+  avatarUrl: PropTypes.string,
 }

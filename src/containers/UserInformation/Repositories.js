@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, useCallback } from 'react';
 
 // Components
@@ -119,4 +120,8 @@ export function Repositories({ username }) {
       />
     </RepositoriesContainer>
   );
-}
+};
+
+Repositories.propTypes = {
+  username: PropTypes.string,
+};

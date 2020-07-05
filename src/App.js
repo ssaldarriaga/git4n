@@ -44,6 +44,6 @@ function App() {
       {userData?.githubUser && <UserInformation user={userData} onReset={handleReset} />}
     </>
   );
-}
+};
 
 export default App;

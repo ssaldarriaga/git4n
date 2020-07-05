@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { Th } from './Table.styles';
@@ -17,7 +18,15 @@ function Cell({ value, isSorted, direction, onClick, accessor }) {
       </div>
     </Th>
   );
-}
+};
+
+Cell.propTypes = {
+  value: PropTypes.string,
+  isSorted: PropTypes.bool,
+  direction: PropTypes.string,
+  onClick: PropTypes.func,
+  accessor: PropTypes.string,
+};
 
 export function TableHead({ columns, sortField, direction, onSort }) {
   return (
@@ -36,4 +45,14 @@ export function TableHead({ columns, sortField, direction, onSort }) {
       </tr>
     </thead>
   );
-}
+};
+
+TableHead.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    accessor: PropTypes.string,
+  })),
+  sortField: PropTypes.string,
+  direction: PropTypes.string,
+  onSort: PropTypes.func,
+};

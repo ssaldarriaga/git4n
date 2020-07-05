@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Row({ row, columns }) {
   return (
@@ -10,7 +11,15 @@ function Row({ row, columns }) {
       ))}
     </tr>
   );
-}
+};
+
+Row.propTypes = {
+  row: PropTypes.objectOf(PropTypes.any),
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    accessor: PropTypes.string,
+  })),
+};
 
 export function TableBody({ rows, columns }) {
   return (
@@ -18,4 +27,12 @@ export function TableBody({ rows, columns }) {
       {rows.map(row => (<Row key={row.id} row={row} columns={columns} />))}
     </tbody>
   );
-}
+};
+
+TableBody.propTypes = {
+  rows: PropTypes.arrayOf(PropTypes.object),
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    accessor: PropTypes.string,
+  })),
+};
