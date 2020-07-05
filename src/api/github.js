@@ -6,8 +6,9 @@ async function getUser(username) {
   return handleResponse(response)
 }
 
-async function getRepositories(username, params) {
-  const url = `https://api.github.com/search/repositories?q=${username}/&${objectToQueryParams(params)}`;
+async function getRepositories(username, params = {}, search = '') {
+  const query = `user:${username}+${search}+in:name`;
+  const url = `https://api.github.com/search/repositories?q=${query}&${objectToQueryParams(params)}`;
   const response = await makeRequest(url);
   return handleResponse(response)
 }

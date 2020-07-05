@@ -20,7 +20,6 @@ function App() {
     }
   }
 
-
   const handleUpdateUser = async (values) => {
     await loadUser(values.githubUser);
     setUserData(prev => ({ ...prev, ...values }));
